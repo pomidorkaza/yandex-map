@@ -27,7 +27,21 @@ const customTheme = {
 };
 function App() {
 
-   
+    const [dimensions, setDimensions] = React.useState({ 
+        height: window.innerHeight,
+        width: window.innerWidth
+      })
+   useEffect(()=>{
+     function handleResize() {
+        console.log(window.innerWidth)
+        setDimensions({
+            height: window.innerHeight,
+            width: window.innerWidth
+          })
+     }
+      window.addEventListener('resize', handleResize)
+
+   },[]);
     //https://github.com/gribnoysup/react-yandex-maps/issues/182
      return <ThemeProvider theme={customTheme}>
          <CSSReset />
@@ -35,7 +49,7 @@ function App() {
         <MiddleContent />
         <Portfolio />
         <AboutUs/>
-    <ContactUs/>
+    <ContactUs dimensions={dimensions}/>
      
     </ThemeProvider>;
 }

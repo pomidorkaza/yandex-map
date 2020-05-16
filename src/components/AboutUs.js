@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Box, Heading, Image,Text, Stack, Button, PseudoBox, Icon } from '@chakra-ui/core';
 
 
@@ -11,7 +11,21 @@ import worker3 from '../img/worker3.png';
 
 
 export const AboutUs=()=>{
+    const [dimensions, setDimensions] = React.useState({ 
+        height: window.innerHeight,
+        width: window.innerWidth
+      })
+   useEffect(()=>{
+     function handleResize() {
+        console.log(window.innerWidth)
+        setDimensions({
+            height: window.innerHeight,
+            width: window.innerWidth
+          })
+     }
+      window.addEventListener('resize', handleResize)
 
+   },[]);
 const dataAbout =[
     {
         id: 1,
@@ -59,7 +73,9 @@ const dataAbout =[
     color="#fff"
     margin="10px  auto"
     >Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</Text>
-    <Stack direction="row" margin="50px auto">
+    <Stack 
+            direction={dimensions.width<780? "column":"row"}
+    margin="50px auto">
         {
             dataAbout.map(item=>{
                 return  <Box 
